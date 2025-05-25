@@ -13,7 +13,7 @@ import { OrderType } from 'src/utils/order.enum';
 import { CreateEducationDto } from './dtos/createEducation.dto';
 import { UpdateEducationDto } from './dtos/updateEducation.dto';
 
-@Controller('api/educations')
+@Controller()
 export class EducationController {
   constructor(private educationService: EducationService) {}
 
@@ -32,16 +32,22 @@ export class EducationController {
     return await this.educationService.findOne(id);
   }
 
+  // @UseGuards(AuthGuard)
   @Post()
   public async create(@Body() createEducationDto: CreateEducationDto) {
-    return await this.educationService.create(createEducationDto);
+    return await this.educationService.create<CreateEducationDto>(
+      createEducationDto,
+    );
   }
 
+  // @UseGuards(AuthGuard)
   @Post('multi')
   public async createMultiple(
     @Body() createEducationDtos: CreateEducationDto[],
   ) {
-    return await this.educationService.createMultiple(createEducationDtos);
+    return await this.educationService.createMultiple<CreateEducationDto>(
+      createEducationDtos,
+    );
   }
 
   @Patch(':id')
@@ -49,7 +55,10 @@ export class EducationController {
     @Param('id') id: string,
     @Body() updateEducationDto: UpdateEducationDto,
   ) {
-    return await this.educationService.update(id, updateEducationDto);
+    return await this.educationService.update<UpdateEducationDto>(
+      id,
+      updateEducationDto,
+    );
   }
 
   @Delete(':id')

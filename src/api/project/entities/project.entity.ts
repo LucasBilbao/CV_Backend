@@ -19,10 +19,10 @@ export class Project {
   @Column({ type: 'text' })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   deploymentUrl: string;
 
-  @Column()
+  @Column({ nullable: true })
   repositoryUrl: string;
 
   @CreateDateColumn({ name: 'created_at' })
