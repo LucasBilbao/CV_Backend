@@ -8,6 +8,7 @@ import { ALIAS } from '../utils/alias.enum';
 import { OrderType } from 'src/utils/order.enum';
 import { QueryBuilderFacade } from 'src/utils/queryBuilder.facade';
 import { Relation } from './interfaces/relations.interface';
+import plural from 'plural';
 
 export class BaseService<T extends ObjectLiteral> {
   protected readonly ALIAS: ALIAS;
@@ -33,7 +34,7 @@ export class BaseService<T extends ObjectLiteral> {
 
     const [data, total] = await queryBuilderFacade.get();
     return {
-      [this.ALIAS]: data,
+      [plural(this.ALIAS)]: data,
       total,
     };
   }
